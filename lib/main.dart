@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
+
+import 'package:http_request_app/post_request.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,7 +33,29 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final String postUrl = 'https://jsonplaceholder.typecode.com/posts';
+  Future<List<Post>> getData() async {
+    final postUrl = "https://jsonplaceholder.typicode.com/posts";
+    try {
+      final result = await http.get(Uri.parse(postUrl));
+      final jsonData = json.decode(result.body);
+
+      List<Post> loadedPost = [];
+
+      for (var post in jsonData) {
+        Post newPost = Post(
+          userId: post['userId'],
+          id: post['id'],
+          title: post['title'],
+          body: post['body'],
+        );
+        loadedPost.add(newPost);
+      }
+
+      return loadedPost;
+    } catch (error) {
+      throw (error);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +63,82 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Text(
-              widget.title,
-              style: Theme.of(context).textTheme.headline4,
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          Container(
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  const Text(
+                    'id',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(left: 20.0),
+                    child: const Text(
+                      'Description',
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ],
-        ),
+          ),
+          Expanded(
+            child: Container(
+                //height: 100.0,
+                child: FutureBuilder(
+                    future: getData(),
+                    builder: (context, AsyncSnapshot snapshot) {
+                      if (snapshot.data == null) {
+                        return Center(
+                          child: CircularProgressIndicator(),
+                        );
+                      } else {
+                        return ListView.builder(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (BuildContext context, int index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Column(
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      CircleAvatar(
+                                        child: Text(
+                                          snapshot.data[index].id.toString(),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        width: 5.0,
+                                      ),
+                                      Expanded(
+                                        child: Text(snapshot.data[index].body),
+                                      ),
+                                    ],
+                                  ),
+                                  Divider(),
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      }
+                    })),
+          ),
+        ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
-        child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+    ); // This trailing comma makes auto-formatting nicer for build methods.
   }
 }
