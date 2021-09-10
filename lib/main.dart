@@ -95,47 +95,48 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           Expanded(
             child: Container(
-                //height: 100.0,
-                child: FutureBuilder(
-                    future: getData(),
-                    builder: (context, AsyncSnapshot snapshot) {
-                      if (snapshot.data == null) {
-                        return Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      } else {
-                        return ListView.builder(
-                          itemCount: snapshot.data.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(10.0),
-                              child: Column(
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      CircleAvatar(
-                                        child: Text(
-                                          snapshot.data[index].id.toString(),
-                                        ),
+              //height: 100.0,
+              child: FutureBuilder(
+                  future: getData(),
+                  builder: (context, AsyncSnapshot snapshot) {
+                    if (snapshot.data == null) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Padding(
+                            padding: const EdgeInsets.all(10.0),
+                            child: Column(
+                              children: [
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    CircleAvatar(
+                                      child: Text(
+                                        snapshot.data[index].id.toString(),
                                       ),
-                                      SizedBox(
-                                        width: 5.0,
-                                      ),
-                                      Expanded(
-                                        child: Text(snapshot.data[index].body),
-                                      ),
-                                    ],
-                                  ),
-                                  Divider(),
-                                ],
-                              ),
-                            );
-                          },
-                        );
-                      }
-                    })),
+                                    ),
+                                    SizedBox(
+                                      width: 5.0,
+                                    ),
+                                    Expanded(
+                                      child: Text(snapshot.data[index].body),
+                                    ),
+                                  ],
+                                ),
+                                Divider(),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    }
+                  }),
+            ),
           ),
         ],
       ),
