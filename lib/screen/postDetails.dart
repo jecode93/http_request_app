@@ -27,6 +27,7 @@ class PostDetail extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                 ),
               ),
+              Divider(),
               ListTile(
                 title: Text(
                   'ID :',
@@ -37,6 +38,7 @@ class PostDetail extends StatelessWidget {
                   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 18),
                 ),
               ),
+              Divider(),
               ListTile(
                 title: Text(
                   'Body :',

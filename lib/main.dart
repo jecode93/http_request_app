@@ -50,19 +50,24 @@ class _MyHomePageState extends State<MyHomePage> {
             return ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, i) {
-                  return ListTile(
-                      leading: Text(
-                        snapshot.data[i].id.toString(),
-                      ),
-                      title: Text(snapshot.data[i].title),
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => PostDetail(
-                                      post: snapshot.data[i],
-                                    )));
-                      });
+                  return Column(
+                    children: [
+                      ListTile(
+                          leading: Text(
+                            snapshot.data[i].id.toString(),
+                          ),
+                          title: Text(snapshot.data[i].title),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => PostDetail(
+                                          post: snapshot.data[i],
+                                        )));
+                          }),
+                      Divider(),
+                    ],
+                  );
                 });
           }
         },
