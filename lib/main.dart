@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:http_request_app/post_request.dart';
+import 'package:http_request_app/models/post_request.dart';
 
 void main() {
   runApp(MyApp());
