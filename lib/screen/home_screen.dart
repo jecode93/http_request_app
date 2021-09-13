@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:http_request_app/models/httpServices.dart';
+import 'package:http_request_app/screen/firstTab.dart';
+import 'package:http_request_app/screen/secondTab.dart';
+import 'package:http_request_app/widgets/appBar.dart';
 
 class HomeScreen extends StatefulWidget {
   HomeScreen({required this.title});
@@ -13,11 +16,22 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(100),
+          child: MyAppBar(
+            title: widget.title,
+          ),
+        ),
+        body: TabBarView(
+          children: [
+            FirstTab(),
+            SecondTab(),
+          ],
+        ),
       ),
-      body: Container(),
     );
     // This trailing comma makes auto-formatting nicer for build methods.
   }
