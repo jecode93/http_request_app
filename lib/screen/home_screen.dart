@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:http_request_app/models/httpServices.dart';
 import 'package:http_request_app/screen/firstTab.dart';
 import 'package:http_request_app/screen/secondTab.dart';
 import 'package:http_request_app/widgets/appBar.dart';
