@@ -1,9 +1,15 @@
 class User {
-  final int? index;
-  final String? about;
-  final String? email;
-  final String? name;
-  final String? picture;
+  final int? id, zipcode;
+  final String? username, email, name, address, street, suite;
 
-  User({this.index, this.about, this.email, this.name, this.picture});
+  User({
+    this.id,
+    this.username,
+    this.email,
+    this.name,
+    this.address,
+    this.street,
+    this.suite,
+    this.zipcode,
+  });
 }
