@@ -1,7 +1,6 @@
 class User {
   final int? id, zipcode, phone;
-  final String? username, email, address, street, suite;
-  final String? name;
+  final String? username, email, address, street, suite, name;
 
   User({
     this.id,
